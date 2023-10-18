@@ -12,11 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Auth struct{}
 
-func AuthDBInit() *Auth {
-	return &Auth{}
-}
 
 // Login
 func (x *Auth) Login(userInfo *models.LoginModel) (*models.UserInfoModel, error) {
@@ -121,7 +117,6 @@ func (x *Auth) Update(userID primitive.ObjectID, userInfo *models.RegisterModel)
 	return nil
 }
 
-// TODO
 // HELPERS
 func checkID(val primitive.ObjectID) error {
 	collection := client.Database(dbName).Collection("users")
@@ -199,7 +194,7 @@ func checkUsername(isRegister bool, username string, userID primitive.ObjectID) 
 			return err
 		}
 		if userIDDB.ID != userID {
-			return errors.New("Email already in use.")
+			return errors.New("username already in use")
 		}
 		return nil
 
