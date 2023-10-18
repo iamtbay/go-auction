@@ -1,0 +1,132 @@
+basePath: api/v1
+definitions:
+  models.LoginModel:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.RegisterModel:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: go-auction
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login For User
+      operationId: auth-login
+      parameters:
+      - description: User login data
+        in: body
+        name: userInfo
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Succesful register
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: User Logout Funciton
+      operationId: logout-user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Succesful register
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Logout User
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register For New User
+      operationId: auth-register
+      parameters:
+      - description: User register data
+        in: body
+        name: userInfo
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Succesful register
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - auth
+  /auth/update:
+    patch:
+      consumes:
+      - application/json
+      description: Update Infos For User
+      operationId: update-user
+      parameters:
+      - description: User update data
+        in: body
+        name: userInfo
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User updated succesfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update User
+      tags:
+      - auth
+swagger: "2.0"
