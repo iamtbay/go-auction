@@ -102,6 +102,7 @@ const docTemplate = `{
                 "tags": [
                     "auth"
                 ],
+                "summary": "Register For New User",
                 "operationId": "auth-register",
                 "parameters": [
                     {
@@ -174,9 +175,222 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/product/delete": {
+            "delete": {
+                "description": "Delete a product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Delete Product",
+                "operationId": "delete-product",
+                "parameters": [
+                    {
+                        "description": "Delete a product",
+                        "name": "productID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product deleted succesfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/product/new": {
+            "post": {
+                "description": "Add a product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "New Product",
+                "operationId": "new-product",
+                "parameters": [
+                    {
+                        "description": "New product data",
+                        "name": "newProductInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.NewProductInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product created succesfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/product/update": {
+            "patch": {
+                "description": "Update a product infos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Update Product",
+                "operationId": "update-product",
+                "parameters": [
+                    {
+                        "description": "Update product data",
+                        "name": "getProductiNFO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetProductInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product updated succesfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{slug}": {
+            "get": {
+                "description": "Get Product Details",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get Product",
+                "operationId": "get-product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Get succesfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "models.DeleteProduct": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetProductInfo": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "brand": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "info": {
+                    "type": "string"
+                },
+                "is_open_to_sell": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "photos": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "seller_id": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                }
+            }
+        },
         "models.LoginModel": {
             "type": "object",
             "properties": {
@@ -184,6 +398,41 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NewProductInfo": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "info": {
+                    "type": "string"
+                },
+                "is_open_to_sell": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "photos": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "seller_id": {
+                    "type": "string"
+                },
+                "slug": {
                     "type": "string"
                 }
             }
@@ -209,7 +458,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "",
-	BasePath:         "api/v1",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "go-auction",
 	Description:      "",

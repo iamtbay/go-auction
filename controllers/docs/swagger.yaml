@@ -1,10 +1,63 @@
-basePath: api/v1
+basePath: /api/v1
 definitions:
+  models.DeleteProduct:
+    properties:
+      _id:
+        type: string
+    type: object
+  models.GetProductInfo:
+    properties:
+      _id:
+        type: string
+      brand:
+        type: string
+      category:
+        type: string
+      created_at:
+        type: string
+      info:
+        type: string
+      is_open_to_sell:
+        type: boolean
+      name:
+        type: string
+      photos:
+        items:
+          type: string
+        type: array
+      seller_id:
+        type: string
+      slug:
+        type: string
+    type: object
   models.LoginModel:
     properties:
       email:
         type: string
       password:
+        type: string
+    type: object
+  models.NewProductInfo:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      created_at:
+        type: string
+      info:
+        type: string
+      is_open_to_sell:
+        type: boolean
+      name:
+        type: string
+      photos:
+        items:
+          type: string
+        type: array
+      seller_id:
+        type: string
+      slug:
         type: string
     type: object
   models.RegisterModel:
@@ -98,6 +151,7 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      summary: Register For New User
       tags:
       - auth
   /auth/update:
@@ -129,4 +183,117 @@ paths:
       summary: Update User
       tags:
       - auth
+  /product/{slug}:
+    get:
+      description: Get Product Details
+      operationId: get-product
+      parameters:
+      - description: Slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User Get succesfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Product
+      tags:
+      - product
+  /product/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product
+      operationId: delete-product
+      parameters:
+      - description: Delete a product
+        in: body
+        name: productID
+        required: true
+        schema:
+          $ref: '#/definitions/models.DeleteProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product deleted succesfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete Product
+      tags:
+      - product
+  /product/new:
+    post:
+      consumes:
+      - application/json
+      description: Add a product
+      operationId: new-product
+      parameters:
+      - description: New product data
+        in: body
+        name: newProductInfo
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewProductInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product created succesfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: New Product
+      tags:
+      - product
+  /product/update:
+    patch:
+      consumes:
+      - application/json
+      description: Update a product infos
+      operationId: update-product
+      parameters:
+      - description: Update product data
+        in: body
+        name: getProductiNFO
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetProductInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product updated succesfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update Product
+      tags:
+      - product
 swagger: "2.0"

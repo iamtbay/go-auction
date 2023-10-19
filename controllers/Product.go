@@ -16,7 +16,15 @@ type Product struct{}
 
 var productDB = database.ProductDBInit()
 
-// get
+// @Summary Get Product
+// @Description Get Product Details
+// @ID get-product
+// @Produce json
+// @Param slug path string true "Slug"
+// @Success 200 {object} map[string]interface{} "User Get succesfully"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /product/{slug} [get]
+// @Tags product
 func (x *Product) Get(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 	//
@@ -33,7 +41,16 @@ func (x *Product) Get(c *fiber.Ctx) error {
 	})
 }
 
-// new
+// @Summary New Product
+// @Description Add a product
+// @ID new-product
+// @Accept json
+// @Produce json
+// @Param newProductInfo body models.NewProductInfo true "New product data"
+// @Success 200 {object} map[string]interface{} "Product created succesfully"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /product/new [post]
+// @Tags product
 func (x *Product) New(c *fiber.Ctx) error {
 	//get product infos from body
 	var productInfo *models.NewProductInfo
@@ -63,7 +80,16 @@ func (x *Product) New(c *fiber.Ctx) error {
 	})
 }
 
-// update
+// @Summary Update Product
+// @Description Update a product infos
+// @ID update-product
+// @Accept json
+// @Produce json
+// @Param getProductiNFO body models.GetProductInfo true "Update product data"
+// @Success 200 {object} map[string]interface{} "Product updated succesfully"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /product/update [patch]
+// @Tags product
 func (x *Product) Update(c *fiber.Ctx) error {
 	//get updated product infos from body id include.
 	var productInfo *models.GetProductInfo
@@ -93,11 +119,18 @@ func (x *Product) Update(c *fiber.Ctx) error {
 	})
 }
 
-// delete
+// @Summary Delete Product
+// @Description Delete a product
+// @ID delete-product
+// @Accept json
+// @Produce json
+// @Param productID body models.DeleteProduct true "Delete a product"
+// @Success 200 {object} map[string]interface{} "Product deleted succesfully"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /product/delete [delete]
+// @Tags product
 func (x *Product) Delete(c *fiber.Ctx) error {
-	var Product struct {
-		ID string `json:"_id" bson:"_id"`
-	}
+	var Product *models.DeleteProduct
 	err := c.BodyParser(&Product)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -127,7 +160,6 @@ func (x *Product) Delete(c *fiber.Ctx) error {
 	}
 
 	//return msg
-
 	return c.Status(http.StatusOK).JSON(fiber.Map{
 		"message": fmt.Sprintf("%v deleted succesfully", obId),
 	})

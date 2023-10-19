@@ -160,7 +160,7 @@ func checkEmail(isRegister bool, email string, userID primitive.ObjectID) error 
 			return err
 		}
 		if userID != userIDDB.ID {
-			return errors.New("Email already in use")
+			return errors.New("email already in use")
 		}
 		return nil
 	}

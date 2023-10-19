@@ -30,3 +30,7 @@ type GetProductInfo struct {
 	IsOpenToSell bool               `json:"is_open_to_sell" bson:"is_open_to_sell"`
 	CreatedAt    time.Time          `json:"created_at" bson:"created_at"`
 }
+
+type DeleteProduct struct {
+	ID string `json:"_id" bson:"_id"`
+}

@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/iamtbay/go-auction/models"
 	"go.mongodb.org/mongo-driver/bson"
@@ -22,7 +21,6 @@ func (x *Product) Get(slug string) (*models.GetProductInfo, error) {
 	//db
 	var productInfo *models.GetProductInfo
 	err := collection.FindOne(ctx, bson.M{"slug": slug}).Decode(&productInfo)
-	fmt.Println(productInfo)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +56,6 @@ func (x *Product) Update(userID primitive.ObjectID, productInfo *models.GetProdu
 	ctx, cancel := context.WithTimeout(context.TODO(), dbTimeout)
 	defer cancel()
 	//check slug is exist or not
-	fmt.Println(productInfo)
 	err := checkSlug(false, productInfo.Slug, userID, productInfo.ID)
 	if err != nil {
 		return err
@@ -90,12 +87,10 @@ func (x *Product) Delete(userID, productID primitive.ObjectID) error {
 	var productInfo *models.GetProductInfo
 	err := collection.FindOne(ctx, filter).Decode(&productInfo)
 	if err != nil {
-		fmt.Println("couldn't find error")
 		return err
 	}
 	_, err = collection.DeleteOne(ctx, filter)
 	if err != nil {
-		fmt.Println("delete error")
 		return err
 	}
 
