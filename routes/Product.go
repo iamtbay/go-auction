@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/iamtbay/go-auction/controllers"
+	"github.com/iamtbay/go-auction/middlewares"
 )
 
 func ProductRoutes(app fiber.Router) {
@@ -11,6 +12,7 @@ func ProductRoutes(app fiber.Router) {
 
 	//
 	productR.Get("/:slug", ctrllr.Get)
+	productR.Use(middlewares.LoginMW)
 	productR.Post("/new", ctrllr.New)
 	productR.Patch("/update", ctrllr.Update)
 	productR.Delete("/delete", ctrllr.Delete)
