@@ -12,8 +12,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-
-
 // Login
 func (x *Auth) Login(userInfo *models.LoginModel) (*models.UserInfoModel, error) {
 	collection := client.Database(dbName).Collection("users")

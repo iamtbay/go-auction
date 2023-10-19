@@ -60,7 +60,7 @@ func (x *Auth) Login(c *fiber.Ctx) error {
 	})
 }
 
-// / @Summary Register For New User
+// @Summary Register For New User
 // @Description Register For New User
 // @ID auth-register
 // @Accept json
@@ -113,8 +113,7 @@ func (x *Auth) Update(c *fiber.Ctx) error {
 		})
 	}
 	//get userinfo from jwt
-	tokenString := c.Cookies("accessToken")
-	claims, err := helpers.ParseJWT(tokenString)
+	claims, err := helpers.GetUserClaimsFromJWT(c)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err.Error(),

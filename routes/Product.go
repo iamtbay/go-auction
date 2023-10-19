@@ -12,7 +12,7 @@ func ProductRoutes(app fiber.Router) {
 	//
 	productR.Get("/:slug", ctrllr.Get)
 	productR.Post("/new", ctrllr.New)
-	productR.Patch("/update/:id", ctrllr.Update)
-	productR.Delete("/delete/:id", ctrllr.Delete)
+	productR.Patch("/update", ctrllr.Update)
+	productR.Delete("/delete", ctrllr.Delete)
 
 }

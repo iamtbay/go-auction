@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/iamtbay/go-auction/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -50,4 +51,14 @@ func ParseJWT(tokenString string) (*JWTClaims, error) {
 		fmt.Println(err)
 		return nil, err
 	}
+}
+
+func GetUserClaimsFromJWT(c *fiber.Ctx) (*JWTClaims, error) {
+	tokenString := c.Cookies("accessToken")
+	claims, err := ParseJWT(tokenString)
+	if err != nil {
+		return nil, err
+	}
+
+	return claims, nil
 }
