@@ -134,7 +134,6 @@ type UsStr struct {
 	ID primitive.ObjectID `json:"_id" bson:"_id"`
 }
 
-// SOME BUG CAN BE HERE CHECK AFTER
 // check email
 func checkEmail(isRegister bool, email string, userID primitive.ObjectID) error {
 	collection := client.Database(dbName).Collection("users")

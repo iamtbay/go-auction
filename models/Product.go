@@ -31,6 +31,11 @@ type GetProductInfo struct {
 	CreatedAt    time.Time          `json:"created_at" bson:"created_at"`
 }
 
+type GetProductAndOwner struct {
+	ID       primitive.ObjectID `json:"_id" bson:"_id"`
+	SellerID primitive.ObjectID `json:"seller_id" bson:"seller_id"`
+}
+
 type DeleteProduct struct {
 	ID string `json:"_id" bson:"_id"`
 }

@@ -9,15 +9,12 @@ import (
 // structs
 type Auth struct{}
 type Product struct{}
+type Auction struct{}
 
 // init funcs
-func AuthDBInit() *Auth {
-	return &Auth{}
-}
-
-func ProductDBInit() *Product {
-	return &Product{}
-}
+func AuthDBInit() *Auth       { return &Auth{} }
+func ProductDBInit() *Product { return &Product{} }
+func AuctionDBInit() *Auction { return &Auction{} }
 
 var (
 	client    *mongo.Client

@@ -10,10 +10,8 @@ import (
 //description go-auction restapi
 //@BasePath /api/v1
 
-func AuthInit() *Auth {
-	return &Auth{}
-}
+func AuthInit() *Auth {return &Auth{}}
 
-func ProductInit() *Product {
-	return &Product{}
-}
+func ProductInit() *Product {return &Product{}}
+
+func AuctionInit() *Auction{ return &Auction{}}
