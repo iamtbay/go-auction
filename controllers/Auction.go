@@ -13,6 +13,16 @@ type Auction struct{}
 var auctionDB = database.AuctionDBInit()
 
 // NEW AUCTION
+// @Summary Start new auction
+// @Description New auction for product
+// @ID new-auction
+// @Accept json
+// @Produce json
+// @Param userInfo body models.NewAuction true "New Auction Data"
+// @Success 200 {object} map[string]interface{} "Auction succesfully created"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /auction/new [POST]
+// @Tags auction
 func (x *Auction) NewAuction(c *fiber.Ctx) error {
 	var auctionInfo *models.NewAuction
 	//get auction info
@@ -44,6 +54,16 @@ func (x *Auction) NewAuction(c *fiber.Ctx) error {
 }
 
 // GET AUCTION
+// @Summary Get Auction
+// @Description Get a auction
+// @ID get-auction
+// @Accept json
+// @Produce json
+// @Param id path string true "Get Auction Data"
+// @Success 200 {object} map[string]interface{} "Succesful"
+// @Failure 400 {object} map[string]interface{} "Error"
+// @Router /auction/{id} [GET]
+// @Tags auction
 func (x *Auction) Get(c *fiber.Ctx) error {
 	//Get params
 	idString := c.Params("id")
@@ -62,7 +82,7 @@ func (x *Auction) Get(c *fiber.Ctx) error {
 	}
 	//return
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Succesfully got",
+		"message": "Succesful",
 		"data":    auctionInfo,
 	})
 }
