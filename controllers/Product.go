@@ -85,7 +85,7 @@ func (x *Product) New(c *fiber.Ctx) error {
 // @ID update-product
 // @Accept json
 // @Produce json
-// @Param getProductiNFO body models.GetProductInfo true "Update product data"
+// @Param getProductInfo body models.GetProductInfo true "Update product data"
 // @Success 200 {object} map[string]interface{} "Product updated succesfully"
 // @Failure 400 {object} map[string]interface{} "Error"
 // @Router /product/update [patch]

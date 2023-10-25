@@ -260,6 +260,86 @@ const docTemplate = `{
                 }
             }
         },
+        "/offers/new": {
+            "post": {
+                "description": "Post new bid for auction",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auction"
+                ],
+                "summary": "New Offer For Auction",
+                "operationId": "new-offer-auction",
+                "parameters": [
+                    {
+                        "description": "New Offer Info",
+                        "name": "newOfferInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.OfferInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Offer sent",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/offers/{id}": {
+            "get": {
+                "description": "Get Real-Time Bids for auction",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auction"
+                ],
+                "summary": "Get Auction",
+                "operationId": "get-ws-auction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Auction",
+                        "name": "auctionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Offer got",
+                        "schema": {
+                            "$ref": "#/definitions/models.OfferInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
         "/product/delete": {
             "delete": {
                 "description": "Delete a product",
@@ -363,7 +443,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Update product data",
-                        "name": "getProductiNFO",
+                        "name": "getProductInfo",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -537,6 +617,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "slug": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.OfferInfo": {
+            "type": "object",
+            "properties": {
+                "auction_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "offer": {
+                    "type": "number"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }

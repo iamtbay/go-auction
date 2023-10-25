@@ -11,7 +11,6 @@ import (
 //@BasePath /api/v1
 
 func AuthInit() *Auth {return &Auth{}}
-
 func ProductInit() *Product {return &Product{}}
-
 func AuctionInit() *Auction{ return &Auction{}}
+func OffersInit() *Offers {return &Offers{}}

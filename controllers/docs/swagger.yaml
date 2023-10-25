@@ -73,6 +73,17 @@ definitions:
       slug:
         type: string
     type: object
+  models.OfferInfo:
+    properties:
+      auction_id:
+        type: string
+      created_at:
+        type: string
+      offer:
+        type: number
+      user_id:
+        type: string
+    type: object
   models.RegisterModel:
     properties:
       email:
@@ -253,6 +264,60 @@ paths:
       summary: Update User
       tags:
       - auth
+  /offers/{id}:
+    get:
+      description: Get Real-Time Bids for auction
+      operationId: get-ws-auction
+      parameters:
+      - description: Get Auction
+        in: path
+        name: auctionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Offer got
+          schema:
+            $ref: '#/definitions/models.OfferInfo'
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Auction
+      tags:
+      - auction
+  /offers/new:
+    post:
+      consumes:
+      - application/json
+      description: Post new bid for auction
+      operationId: new-offer-auction
+      parameters:
+      - description: New Offer Info
+        in: body
+        name: newOfferInfo
+        required: true
+        schema:
+          $ref: '#/definitions/models.OfferInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Offer sent
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: New Offer For Auction
+      tags:
+      - auction
   /product/{slug}:
     get:
       description: Get Product Details
@@ -346,7 +411,7 @@ paths:
       parameters:
       - description: Update product data
         in: body
-        name: getProductiNFO
+        name: getProductInfo
         required: true
         schema:
           $ref: '#/definitions/models.GetProductInfo'
