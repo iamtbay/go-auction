@@ -79,16 +79,14 @@ func (x *Offers) GetAuction(c *websocket.Conn) {
 		delete(clients[auctionID], c)
 		c.Close()
 	}()
-
-	for conn := range clients[auctionID] {
-		for offers := range broadcast {
-			if err := conn.WriteJSON(offers); err != nil {
-				log.Println("off err")
+	//
+	for msg := range broadcast {
+		for conn := range clients[msg.AuctionID.Hex()] {
+			err := conn.WriteJSON(msg)
+			if err != nil {
+				log.Println(err)
 				return
 			}
 		}
-
 	}
-
 }
-
